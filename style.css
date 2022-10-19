@@ -73,6 +73,8 @@ ul {
 
 /* Columns */
 .drag-column {
+  font-size: 1.667em;
+  flex: 1; /*Evenly divide the space*/
   margin: 0 10px;
   position: relative;
   background-color: rgba(0, 0, 0, 0.4);
@@ -111,7 +113,7 @@ ul {
 /* Custom Scrollbar */
 .custom-scroll {
   overflow-y: auto;
-  max-height: 75vh;
+  max-height: 52vh;
 }
 
 .custom-scroll::-webkit-scrollbar-track {
@@ -139,7 +141,7 @@ ul {
 }
 
 .header h1 {
-  font-size: 1.25rem;
+  font-size: 2.25rem;
 }
 
 /* Drag and Drop */
@@ -157,7 +159,7 @@ ul {
   height: fit-content;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
-  line-height: 1.5rem;
+  line-height: 1.33em;
   letter-spacing: 1px;
   cursor: pointer;
 }
