@@ -1,6 +1,24 @@
 /* Trees Image - Pexels: https://www.pexels.com/photo/photo-of-trees-in-forest-3801030/ */
 @import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
 
+@font-face {
+  font-family: "Kudryashev Display";
+  src: url("KudryashevDisplay-Sans.eot");
+  src: local("Kudryashev Display Sans"), local("KudryashevDisplay-Sans"),
+    url("KudryashevDisplay-Sans.eot?#iefix") format("embedded-opentype"),
+    url("KudryashevDisplay-Sans.woff2") format("woff2"), url("KudryashevDisplay-Sans.woff") format("woff"),
+    url("KudryashevDisplay-Sans.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Acumin Pro";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Acumin Pro"), url("Acumin-RPro.woff") format("woff");
+}
+
 html {
   box-sizing: border-box;
 }
@@ -19,18 +37,23 @@ body {
   background-position: 50% 60%;
   background-attachment: fixed;
   color: white;
-  font-family: Quicksand, sans-serif;
+  /* font-family: Quicksand, sans-serif; */
+  font-family: "Acumin Pro", sans-serif;
   overflow-y: hidden;
 }
 
 h1 {
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 5px black;
+  letter-spacing: 4px;
+  /* text-shadow: 2px 2px 5px black; */
 }
 
 .main-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 6rem;
+  font-family: "Kudryashev Display";
+  font-weight: 700;
+  font-style: normal;
+  font-feature-settings: "swsh";
 }
 
 ul {
@@ -50,7 +73,6 @@ ul {
 
 /* Columns */
 .drag-column {
-
   margin: 0 10px;
   position: relative;
   background-color: rgba(0, 0, 0, 0.4);
