@@ -56,9 +56,6 @@ function updateSavedColumns() {
 
 // Create DOM Elements for each list item
 function createItemEl(columnEl, column, item, index) {
-  // console.log("columnEl:", columnEl);
-  // console.log("column:", column);
-  // console.log("index:", index, "item:", item);
   // List Item
   const listEl = document.createElement("li");
   listEl.classList.add("drag-item");
@@ -99,25 +96,44 @@ function updateDOM() {
     createItemEl(onHoldList, 3, onHoldItem, index);
   });
 
-  // Run getSavedColumns only once, Update Local Storage
+  // save arrays to localstorage
+  updateSavedColumns();
+}
+
+// Allow arrays to reflect drag and drop items
+function rebuildArrays() {
+  backlogListArray = [];
+  progressListArray = [];
+  completeListArray = [];
+  onHoldListArray = [];
+  for (let i = 0; i < backlogList.children.length; i++) {
+    backlogListArray.push(backlogList.children[i].textContent);
+  }
+  for (let i = 0; i < progressList.children.length; i++) {
+    progressListArray.push(progressList.children[i].textContent);
+  }
+  for (let i = 0; i < completeList.children.length; i++) {
+    completeListArray.push(completeList.children[i].textContent);
+  }
+  for (let i = 0; i < onHoldList.children.length; i++) {
+    onHoldListArray.push(onHoldList.children[i].textContent);
+  }
+  updateDOM();
 }
 
 // When a li.drag-item starts dragging...
 function drag(e) {
   // the li.drag-item that is being dragged
   draggedItem = e.target;
-  console.log("draggedItem", draggedItem);
 }
 
 // Column Allows for li.drag-item to drop
 function allowDrop(e) {
   e.preventDefault();
-  // console.log("allowDrop()");
 }
 
 // When the item enters the column area
 function dragEnter(column) {
-  // console.log();
   listColumns[column].classList.add("over");
   currentColumn = column;
 }
@@ -125,13 +141,13 @@ function dragEnter(column) {
 // Dropping li.drag-item to column
 function drop(e) {
   e.preventDefault();
-  console.log("drop()");
   // Remove background color/padding
   listColumns.forEach((column) => column.classList.remove("over"));
 
   // Add item to column
   const parentEl = listColumns[currentColumn];
   parentEl.appendChild(draggedItem);
+  rebuildArrays();
 }
 
 // On Load
