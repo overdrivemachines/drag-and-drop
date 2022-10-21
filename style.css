@@ -77,9 +77,9 @@ ul {
   flex: 1; /*Evenly divide the space*/
   margin: 0 10px;
   position: relative;
-  background-color: rgba(0, 0, 0, 0.4);
-  /* background-color: rgba(0, 0, 0, 1); */
-  border-radius: 10px;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+  background-color: rgba(0, 0, 0, 1);
+  /* border-radius: 10px; */
   overflow-x: hidden;
 }
 
@@ -155,12 +155,14 @@ ul {
 }
 
 .drag-item {
-  margin: 10px;
-  padding: 10px;
+  margin: 0.667em;
+  padding: 0.667em;
+  /* margin: 10px; */
+  /* padding: 10px; */
   height: fit-content;
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  line-height: 1.33em;
+  /* border-radius: 10px; */
+  /* line-height: 1.33em; */
   letter-spacing: 1px;
   cursor: pointer;
 }
