@@ -78,6 +78,7 @@ ul {
   margin: 0 10px;
   position: relative;
   background-color: rgba(0, 0, 0, 0.4);
+  /* background-color: rgba(0, 0, 0, 1); */
   border-radius: 10px;
   overflow-x: hidden;
 }
