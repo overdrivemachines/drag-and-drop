@@ -160,7 +160,7 @@ ul {
   /* margin: 10px; */
   /* padding: 10px; */
   height: fit-content;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(32, 19, 19, 0.8);
   /* border-radius: 10px; */
   /* line-height: 1.33em; */
   letter-spacing: 1px;
@@ -180,8 +180,8 @@ ul {
 }
 
 .add-btn {
-  margin: 10px;
-  padding: 5px 10px;
+  margin: 0.667em;
+  padding: 0.667em;
   display: flex;
   align-items: center;
   cursor: pointer;
