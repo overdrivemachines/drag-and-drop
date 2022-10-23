@@ -27,10 +27,15 @@ let currentColumn;
 function getSavedColumns() {
   if (localStorage.getItem("backlogItems")) {
     console.log("backlogItems found in localStorage");
-    backlogListArray = JSON.parse(localStorage.backlogItems);
-    progressListArray = JSON.parse(localStorage.progressItems);
-    completeListArray = JSON.parse(localStorage.completeItems);
-    onHoldListArray = JSON.parse(localStorage.onHoldItems);
+    try {
+      backlogListArray = JSON.parse(localStorage.backlogItems);
+      progressListArray = JSON.parse(localStorage.progressItems);
+      completeListArray = JSON.parse(localStorage.completeItems);
+      onHoldListArray = JSON.parse(localStorage.onHoldItems);
+    } catch {
+      alert("error");
+      // backlogListArray = progressListArray = completeListArray = onHoldListArray = ["Sample Item"];
+    }
   } else {
     console.log("backlogItems not found in localStorage");
     backlogListArray = ["Release the course", "Sit back and relax"];
@@ -54,6 +59,12 @@ function updateSavedColumns() {
   // localStorage.setItem("onHoldItems", JSON.stringify(onHoldListArray));
 }
 
+// Filter Arrays to remove empty items
+function filterArray(array) {
+  const filteredArray = array.filter((item) => item != null);
+  return filteredArray;
+}
+
 // Create DOM Elements for each list item
 function createItemEl(columnEl, column, item, index) {
   // List Item
@@ -62,6 +73,10 @@ function createItemEl(columnEl, column, item, index) {
   listEl.textContent = item;
   listEl.draggable = true;
   listEl.setAttribute("ondragstart", "drag(event)");
+  listEl.contentEditable = "true";
+  listEl.id = index;
+  listEl.setAttribute("onfocusout", `updateItem(${index}, ${column})`);
+
   columnEl.appendChild(listEl);
 }
 
@@ -77,36 +92,63 @@ function updateDOM() {
   backlogListArray.forEach((backlogItem, index) => {
     createItemEl(backlogList, 0, backlogItem, index);
   });
+  backlogListArray = filterArray(backlogListArray);
 
   // Progress Column
   progressList.textContent = "";
   progressListArray.forEach((progressItem, index) => {
     createItemEl(progressList, 1, progressItem, index);
   });
+  progressListArray = filterArray(progressListArray);
 
   // Complete Column
   completeList.textContent = "";
   completeListArray.forEach((completeItem, index) => {
     createItemEl(completeList, 2, completeItem, index);
   });
+  completeListArray = filterArray(completeListArray);
 
   // On Hold Column
   onHoldList.textContent = "";
   onHoldListArray.forEach((onHoldItem, index) => {
     createItemEl(onHoldList, 3, onHoldItem, index);
   });
+  onHoldListArray = filterArray(onHoldListArray);
 
   // save arrays to localstorage
   updateSavedColumns();
 }
 
+// Update Item - Delete if necessary(blank), or update Array Value
+function updateItem(id, column) {
+  const selectedArray = listArrays[column];
+  const selectedColumnEl = listColumns[column].children;
+
+  // console.log("selectedArray:", selectedArray);
+  // console.log("selectedColumnEl[id].textContent:", selectedColumnEl[id].textContent);
+
+  if (!selectedColumnEl[id].textContent) {
+    delete selectedArray[id];
+  } else {
+    selectedArray[id] = selectedColumnEl[id].textContent;
+  }
+
+  // console.log(selectedArray[id]);
+  updateDOM();
+}
+
 // Add to column list, reset textbox
 
 function addToColumn(column) {
+  // Get text content
   const itemText = addItems[column].textContent;
+  // Array
   const selectedArray = listArrays[column];
+  // Add to array
   selectedArray.push(itemText);
+  // Make Add Item text blank
   addItems[column].textContent = "";
+  // Save to localStorage
   updateDOM();
 }
 
