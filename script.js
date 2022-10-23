@@ -22,6 +22,7 @@ let listArrays = [];
 // Drag Functionality
 let draggedItem;
 let currentColumn;
+let dragging = false;
 
 // Get Arrays from localStorage if available, set default values if not
 function getSavedColumns() {
@@ -34,7 +35,7 @@ function getSavedColumns() {
       onHoldListArray = JSON.parse(localStorage.onHoldItems);
     } catch {
       alert("error");
-      // backlogListArray = progressListArray = completeListArray = onHoldListArray = ["Sample Item"];
+      backlogListArray = progressListArray = completeListArray = onHoldListArray = ["Sample Item"];
     }
   } else {
     console.log("backlogItems not found in localStorage");
@@ -127,14 +128,14 @@ function updateItem(id, column) {
   // console.log("selectedArray:", selectedArray);
   // console.log("selectedColumnEl[id].textContent:", selectedColumnEl[id].textContent);
 
-  if (!selectedColumnEl[id].textContent) {
-    delete selectedArray[id];
-  } else {
-    selectedArray[id] = selectedColumnEl[id].textContent;
+  if (!dragging) {
+    if (!selectedColumnEl[id].textContent) {
+      delete selectedArray[id];
+    } else {
+      selectedArray[id] = selectedColumnEl[id].textContent;
+    }
+    updateDOM();
   }
-
-  // console.log(selectedArray[id]);
-  updateDOM();
 }
 
 // Add to column list, reset textbox
@@ -192,6 +193,10 @@ function rebuildArrays() {
 function drag(e) {
   // the li.drag-item that is being dragged
   draggedItem = e.target;
+  dragging = true;
+  // draggedItem.contentEditable = "false";
+
+  console.log(draggedItem);
 }
 
 // Column Allows for li.drag-item to drop
@@ -213,7 +218,11 @@ function drop(e) {
 
   // Add item to column
   const parentEl = listColumns[currentColumn];
+  // draggedItem.contentEditable = "false";
   parentEl.appendChild(draggedItem);
+
+  // Dragging complete
+  dragging = false;
   rebuildArrays();
 }
 
